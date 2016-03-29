@@ -9,7 +9,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>edu.unc.mapseq.pipelines</groupId>
   <artifactId>gs-clean</artifactId>
-  <version>0.6.1-SNAPSHOT</version>
+  <version>0.6.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <url>https://jdr0887.github.io/MaPSeq-Pipeline-GS-Clean</url>
   <organization>
@@ -38,7 +38,7 @@
       <dependency>
       	<groupId>edu.unc.mapseq.pipelines.gs-clean</groupId>
       	<artifactId>gs-clean-workflow</artifactId>
-      	<version>0.6.1-SNAPSHOT</version>
+      	<version>0.6.0-SNAPSHOT</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
