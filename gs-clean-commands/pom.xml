@@ -70,6 +70,7 @@
             <Private-Package />
             <Export-Package>edu.unc.mapseq.commands.gs.clean*</Export-Package>
             <Import-Package>*</Import-Package>
+            <Karaf-Commands>edu.unc.mapseq.commands.gs.clean</Karaf-Commands>	    	    	   	    
           </instructions>
         </configuration>
       </plugin>
