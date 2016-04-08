@@ -78,9 +78,9 @@ public class GSCleanMessageListener extends AbstractSequencingMessageListener {
 
         Workflow workflow = null;
         try {
-            List<Workflow> workflowList = workflowDAO.findByName("NCNEXUSClean");
+            List<Workflow> workflowList = workflowDAO.findByName("GSClean");
             if (workflowList == null || (workflowList != null && workflowList.isEmpty())) {
-                logger.error("No Workflow Found: {}", "NCNEXUSClean");
+                logger.error("No Workflow Found: {}", "GSClean");
                 return;
             }
             workflow = workflowList.get(0);
