@@ -14,7 +14,7 @@
   <bean id="GSCleanMessagingService" class="edu.unc.mapseq.messaging.gs.clean.GSCleanMessageService" init-method="start"
     destroy-method="stop" activation="eager">
     <property name="connectionFactory" ref="connectionFactory" />
-    <property name="messageListener" ref="NCNEXUSCleanMessageListener" />
+    <property name="messageListener" ref="GSCleanMessageListener" />
     <property name="destinationName" value="queue/gs.clean" />
   </bean>
 
