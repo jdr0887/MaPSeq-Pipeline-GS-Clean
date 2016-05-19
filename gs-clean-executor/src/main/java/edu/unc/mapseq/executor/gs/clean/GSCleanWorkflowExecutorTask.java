@@ -45,7 +45,6 @@ public class GSCleanWorkflowExecutorTask extends TimerTask {
                 threadPoolExecutor.getCompletedTaskCount()));
 
         MaPSeqDAOBeanService mapseqDAOBeanService = this.workflowBeanService.getMaPSeqDAOBeanService();
-
         WorkflowDAO workflowDAO = mapseqDAOBeanService.getWorkflowDAO();
         WorkflowRunAttemptDAO workflowRunAttemptDAO = mapseqDAOBeanService.getWorkflowRunAttemptDAO();
 
