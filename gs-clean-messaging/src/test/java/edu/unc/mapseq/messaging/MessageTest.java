@@ -60,25 +60,13 @@ public class MessageTest {
             generator.writeArrayFieldStart("entities");
 
             generator.writeStartObject();
-            generator.writeStringField("entityType", "FileData");
-            generator.writeStringField("id", "775487");
+            generator.writeStringField("entityType", "Sample");
+            generator.writeStringField("id", "2543149");
             generator.writeEndObject();
 
             generator.writeStartObject();
             generator.writeStringField("entityType", "WorkflowRun");
-            generator.writeStringField("name", "150714_UNC16-SN851_0572_BH5N2KBCXX_CASAVA");
-
-            generator.writeArrayFieldStart("attributes");
-
-            generator.writeStartObject();
-            generator.writeStringField("name", "allowMismatches");
-            generator.writeStringField("value", "false");
-            generator.writeEndObject();
-
-            generator.writeEndArray();
-            generator.writeEndObject();
-
-            generator.writeEndArray();
+            generator.writeStringField("name", "jdr-test-gs-clean");
             generator.writeEndObject();
 
             generator.flush();
@@ -87,9 +75,6 @@ public class MessageTest {
             sw.flush();
             sw.close();
             System.out.println(sw.toString());
-
-            String format = "{\"entities\":[{\"entityType\":\"FileData\",\"id\":\"%d\"},{\"entityType\":\"WorkflowRun\",\"name\":\"%s\"}]}";
-            System.out.println(String.format(format, 775487, "150714_UNC16-SN851_0572_BH5N2KBCXX_CASAVA"));
 
         } catch (IOException e) {
             e.printStackTrace();
