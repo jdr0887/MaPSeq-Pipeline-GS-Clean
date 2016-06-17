@@ -3,7 +3,6 @@ package edu.unc.mapseq.workflow.gs.clean;
 import java.io.File;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
@@ -24,8 +23,6 @@ import edu.unc.mapseq.module.core.RemoveCLI;
 import edu.unc.mapseq.workflow.WorkflowException;
 import edu.unc.mapseq.workflow.core.WorkflowJobFactory;
 import edu.unc.mapseq.workflow.sequencing.AbstractSequencingWorkflow;
-import edu.unc.mapseq.workflow.sequencing.SequencingWorkflowJobFactory;
-import edu.unc.mapseq.workflow.sequencing.SequencingWorkflowUtil;
 
 public class GSCleanWorkflow extends AbstractSequencingWorkflow {
 
@@ -87,7 +84,7 @@ public class GSCleanWorkflow extends AbstractSequencingWorkflow {
             File bclFlowcellDir = new File(bclDir, flowcell.getName());
 
             for (Integer lane : laneSet) {
-                File unalignedDir = new File(bclFlowcellDir, String.format("%s.%d", "Unaligned", lane.toString()));
+                File unalignedDir = new File(bclFlowcellDir, String.format("%s.%s", "Unaligned", lane.toString()));
                 CondorJobBuilder builder = WorkflowJobFactory.createJob(++count, RemoveCLI.class, attempt.getId())
                         .siteName(siteName);
                 builder.addArgument(RemoveCLI.FILE, unalignedDir);
