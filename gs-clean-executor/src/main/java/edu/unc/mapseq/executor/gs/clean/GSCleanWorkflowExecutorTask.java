@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.TimerTask;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.FrameworkUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,9 +43,8 @@ public class GSCleanWorkflowExecutorTask extends TimerTask {
         threadPoolExecutor.setCorePoolSize(workflowBeanService.getCorePoolSize());
         threadPoolExecutor.setMaximumPoolSize(workflowBeanService.getMaxPoolSize());
 
-        logger.info(String.format("ActiveCount: %d, TaskCount: %d, CompletedTaskCount: %d",
-                threadPoolExecutor.getActiveCount(), threadPoolExecutor.getTaskCount(),
-                threadPoolExecutor.getCompletedTaskCount()));
+        logger.info(String.format("ActiveCount: %d, TaskCount: %d, CompletedTaskCount: %d", threadPoolExecutor.getActiveCount(),
+                threadPoolExecutor.getTaskCount(), threadPoolExecutor.getCompletedTaskCount()));
 
         MaPSeqDAOBeanService mapseqDAOBeanService = this.workflowBeanService.getMaPSeqDAOBeanService();
         WorkflowDAO workflowDAO = mapseqDAOBeanService.getWorkflowDAO();
@@ -63,6 +65,10 @@ public class GSCleanWorkflowExecutorTask extends TimerTask {
                 return;
             }
 
+            BundleContext bundleContext = FrameworkUtil.getBundle(getClass()).getBundleContext();
+            Bundle bundle = bundleContext.getBundle();
+            String version = bundle.getVersion().toString();
+
             List<WorkflowRunAttempt> attempts = workflowRunAttemptDAO.findEnqueued(workflowList.get(0).getId());
 
             if (CollectionUtils.isNotEmpty(attempts)) {
@@ -71,7 +77,7 @@ public class GSCleanWorkflowExecutorTask extends TimerTask {
                 for (WorkflowRunAttempt attempt : attempts) {
 
                     GSCleanWorkflow cleanWorkflow = new GSCleanWorkflow();
-                    attempt.setVersion(cleanWorkflow.getVersion());
+                    attempt.setVersion(version);
                     attempt.setDequeued(new Date());
                     workflowRunAttemptDAO.save(attempt);
 
