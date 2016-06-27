@@ -3,10 +3,8 @@ package edu.unc.mapseq.workflow.gs.clean;
 import java.io.File;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.ResourceBundle;
 import java.util.Set;
 
-import org.apache.commons.lang.StringUtils;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultDirectedGraph;
@@ -20,6 +18,7 @@ import edu.unc.mapseq.dao.model.Flowcell;
 import edu.unc.mapseq.dao.model.Sample;
 import edu.unc.mapseq.dao.model.WorkflowRunAttempt;
 import edu.unc.mapseq.module.core.RemoveCLI;
+import edu.unc.mapseq.workflow.SystemType;
 import edu.unc.mapseq.workflow.WorkflowException;
 import edu.unc.mapseq.workflow.core.WorkflowJobFactory;
 import edu.unc.mapseq.workflow.sequencing.AbstractSequencingWorkflow;
@@ -38,18 +37,15 @@ public class GSCleanWorkflow extends AbstractSequencingWorkflow {
     }
 
     @Override
-    public String getVersion() {
-        ResourceBundle bundle = ResourceBundle.getBundle("edu/unc/mapseq/workflow/gs/clean/workflow");
-        String version = bundle.getString("version");
-        return StringUtils.isNotEmpty(version) ? version : "0.0.1-SNAPSHOT";
+    public SystemType getSystem() {
+        return SystemType.PRODUCTION;
     }
 
     @Override
     public Graph<CondorJob, CondorJobEdge> createGraph() throws WorkflowException {
         logger.info("ENTERING createGraph()");
 
-        DirectedGraph<CondorJob, CondorJobEdge> graph = new DefaultDirectedGraph<CondorJob, CondorJobEdge>(
-                CondorJobEdge.class);
+        DirectedGraph<CondorJob, CondorJobEdge> graph = new DefaultDirectedGraph<CondorJob, CondorJobEdge>(CondorJobEdge.class);
 
         int count = 0;
 
@@ -71,8 +67,7 @@ public class GSCleanWorkflow extends AbstractSequencingWorkflow {
         for (Flowcell flowcell : flowcells) {
             File flowcellStagingDir = new File(flowcellStagingDirectory, flowcell.getName());
             if (flowcellStagingDir.exists()) {
-                CondorJobBuilder builder = WorkflowJobFactory.createJob(++count, RemoveCLI.class, attempt.getId())
-                        .siteName(siteName);
+                CondorJobBuilder builder = WorkflowJobFactory.createJob(++count, RemoveCLI.class, attempt.getId()).siteName(siteName);
                 builder.addArgument(RemoveCLI.FILE, flowcellStagingDir.getAbsolutePath());
             }
 
@@ -85,8 +80,7 @@ public class GSCleanWorkflow extends AbstractSequencingWorkflow {
 
             for (Integer lane : laneSet) {
                 File unalignedDir = new File(bclFlowcellDir, String.format("%s.%s", "Unaligned", lane.toString()));
-                CondorJobBuilder builder = WorkflowJobFactory.createJob(++count, RemoveCLI.class, attempt.getId())
-                        .siteName(siteName);
+                CondorJobBuilder builder = WorkflowJobFactory.createJob(++count, RemoveCLI.class, attempt.getId()).siteName(siteName);
                 builder.addArgument(RemoveCLI.FILE, unalignedDir);
                 CondorJob removeUnalignedDirectoryJob = builder.build();
                 logger.info(removeUnalignedDirectoryJob.toString());
