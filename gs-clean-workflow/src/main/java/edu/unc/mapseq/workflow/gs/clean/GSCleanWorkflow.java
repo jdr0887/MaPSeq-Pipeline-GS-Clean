@@ -21,6 +21,7 @@ import edu.unc.mapseq.module.core.RemoveCLI;
 import edu.unc.mapseq.workflow.WorkflowException;
 import edu.unc.mapseq.workflow.core.WorkflowJobFactory;
 import edu.unc.mapseq.workflow.sequencing.AbstractSequencingWorkflow;
+import edu.unc.mapseq.workflow.sequencing.SequencingWorkflowUtil;
 
 public class GSCleanWorkflow extends AbstractSequencingWorkflow {
 
@@ -38,7 +39,8 @@ public class GSCleanWorkflow extends AbstractSequencingWorkflow {
 
         int count = 0;
 
-        Set<Sample> sampleSet = getAggregatedSamples();
+        Set<Sample> sampleSet = SequencingWorkflowUtil.getAggregatedSamples(getWorkflowBeanService().getMaPSeqDAOBeanService(),
+                getWorkflowRunAttempt());
         logger.info("sampleSet.size(): {}", sampleSet.size());
         WorkflowRunAttempt attempt = getWorkflowRunAttempt();
 
