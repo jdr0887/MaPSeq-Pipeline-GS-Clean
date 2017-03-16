@@ -2,13 +2,13 @@
   <parent>
     <groupId>edu.unc.mapseq.pipelines</groupId>
     <artifactId>gs-clean</artifactId>
-    <version>0.6.47-SNAPSHOT</version>
+    <version>0.6.47</version>
   </parent>
   <name>MaPSeq :: Pipelines :: GS :: Clean :: Executor</name>
   <modelVersion>4.0.0</modelVersion>
   <groupId>edu.unc.mapseq.pipelines.gs-clean</groupId>
   <artifactId>gs-clean-executor</artifactId>
-  <version>0.6.47-SNAPSHOT</version>
+  <version>0.6.47</version>
   <packaging>bundle</packaging>
   <properties>
     <maven.site.plugin.skip>true</maven.site.plugin.skip>    
